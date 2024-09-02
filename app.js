@@ -7,17 +7,15 @@ const PORT = 3000
 const app = express()
 const EmployeeRoute = require('./routes/Employee')
 
-mongoose.connect('mongodb://localhost:27017/practice');
-
-const db = mongoose.connection
-
-db.on('error', (err) => {
-    console.log(err)
-})
-
-db.once('open', () => {
-    console.log("DB Connection Established")
-})
+mongoose
+    .connect('mongodb://localhost:27017/practice')
+    .then(()=>{
+        console.log('db connection is established')
+    })
+    .catch(err=>{
+        console.log('error while connecting db')
+    })
+    
 
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
